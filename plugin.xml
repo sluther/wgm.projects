@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.devblocks.com/schema/plugin.xsd">
+	<id>wgm.projects</id>
+	<name>WGM Projects</name>
+	<description>This plugin adds Projects, Milestones, and Issue tracking to Cerb</description>
+	<author>WebGroup Media, LLC.</author>
+	<version>1.0.0</version>
+	<link>http://www.cerbweb.com/book/latest/plugins/wgm.projects</link>
+
+	<!-- Requirements -->
+
+	<requires>
+		<app_version min="6.2" max="6.2.0" />
+	</requires>
+
+	<!-- Plugin Dependencies -->
+
+	<dependencies>
+		<require plugin_id="cerberusweb.core" version="6.2.0" />
+	</dependencies>
+
+    <patches>
+		<patch version="0.9.0" revision="1" file="patches/0.9.0.php" />
+	</patches>
+
+    <!-- Exported Classes -->
+
+    <class_loader>
+ 		<file path="api/dao/project.php">
+			<class name="DAO_Project" />
+			<class name="Model_Project" />
+			<class name="SearchFields_Project" />
+			<class name="View_Project" />
+		</file>
+		<file path="api/dao/milestone.php">
+			<class name="DAO_Milestone" />
+			<class name="Model_Milestone" />
+			<class name="SearchFields_Milestone" />
+			<class name="View_Milestone" />
+		</file>
+		<file path="api/dao/issue.php">
+			<class name="DAO_Issue" />
+			<class name="Model_Issue" />
+			<class name="SearchFields_Issue" />
+			<class name="View_Issue" />
+		</file>
+    </class_loader>
+
+	<!-- Templates -->
+
+	<extensions>
+
+		<extension point="devblocks.context">
+			<id>wgm.contexts.project</id>
+			<name>Project</name>
+			<class>
+				<file>api/dao/project.php</file>
+				<name>Context_Project</name>
+			</class>
+			<params>
+				<param key="alias" value="project" />
+				<param key="dao_class" value="DAO_Project" />
+				<param key="view_class" value="View_Project" />
+				<param key="options">
+					<value>
+						<data key="create" />
+						<data key="find" />
+						<data key="snippets" />
+						<data key="va_variable" />
+						<data key="workspace" />
+					</value>
+				</param>
+			</params>
+		</extension>
+
+		<extension point="devblocks.context">
+			<id>wgm.contexts.milestone</id>
+			<name>Milestone</name>
+			<class>
+				<file>api/dao/milestone.php</file>
+				<name>Context_Milestone</name>
+			</class>
+			<params>
+				<param key="alias" value="milestone" />
+				<param key="dao_class" value="DAO_Milestone" />
+				<param key="view_class" value="View_Milestone" />
+				<param key="options">
+					<value>
+						<data key="create" />
+						<data key="find" />
+						<data key="snippets" />
+						<data key="va_variable" />
+						<data key="workspace" />
+					</value>
+				</param>
+			</params>
+		</extension>
+
+		<extension point="devblocks.context">
+			<id>wgm.contexts.issue</id>
+			<name>Issue</name>
+			<class>
+				<file>api/dao/issue.php</file>
+				<name>Context_Issue</name>
+			</class>
+			<params>
+				<param key="alias" value="issue" />
+				<param key="dao_class" value="DAO_Issue" />
+				<param key="view_class" value="View_Issue" />
+				<param key="options">
+					<value>
+						<data key="create" />
+						<data key="find" />
+						<data key="snippets" />
+						<data key="va_variable" />
+						<data key="workspace" />
+					</value>
+				</param>
+			</params>
+		</extension>
+
+		<!-- Profile Page Sections -->
+
+        <!-- <extension point="cerberusweb.ui.page.section">
+            <id>wgm.projects.project</id>
+            <name>Project</name>
+            <class>
+                <file>api/profiles/project.php</file>
+                <name>PageSection_ProfilesProject</name>
+            </class>
+            <params>
+                <param key="page_id" value="core.page.profiles" />
+                <param key="uri" value="project" />
+            </params>
+        </extension> -->
+
+        <!-- App Pages -->
+
+        <extension point="cerberusweb.page">
+            <id>wgm.projects.page</id>
+            <name>Projects Page</name>
+            <class>
+                <file>api/uri/projects.php</file>
+                <name>WgmProjectsPage</name>
+            </class>
+            <params>
+                <param key="uri" value="projects" />
+                <param key="menutitle" value="" />
+            </params>
+        </extension>
+
+        <extension point="cerberusweb.page">
+            <id>wgm.milestones.page</id>
+            <name>Milestones Page</name>
+            <class>
+                <file>api/uri/milestones.php</file>
+                <name>WgmMilestonesPage</name>
+            </class>
+            <params>
+                <param key="uri" value="milestones" />
+                <param key="menutitle" value="" />
+            </params>
+        </extension>
+
+	</extensions>
+
+</plugin>
